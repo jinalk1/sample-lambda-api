@@ -1,0 +1,33 @@
+version: 2
+orbs:
+  aws-s3: circleci/aws-s3@1.0.0
+jobs:
+  build:
+    working_directory: ~/temp
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-package
+          command: npm install
+      - run:
+          name: Install AWS CLI
+          command: sudo apt-get -y -qq install awscli
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: echo CIRCLE_BUILD_NUM
+          command: echo $CIRCLE_BUILD_NUM
+      - run:
+          name: zip-package
+          command: zip -r sample-lambda-api-$CIRCLE_BUILD_NUM.zip nodejs
+      - store_artifacts:
+          path: sample-lambda-api-$CIRCLE_BUILD_NUM.zip
+      - run:
+          name: copy-artifact-to-s3
+          command: aws s3 cp sample-lambda-api-$CIRCLE_BUILD_NUM.zip s3://repo-build-sample-lambda-api
