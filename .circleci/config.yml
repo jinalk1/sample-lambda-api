@@ -25,7 +25,7 @@ jobs:
           command: echo $CIRCLE_BUILD_NUM
       - run:
           name: zip-package
-          command: zip -r sample-lambda-api-$CIRCLE_BUILD_NUM.zip nodejs
+          command: zip -r sample-lambda-api-$CIRCLE_BUILD_NUM.zip .
       - store_artifacts:
           path: sample-lambda-api-$CIRCLE_BUILD_NUM.zip
       - run:
