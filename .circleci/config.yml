@@ -23,6 +23,9 @@ jobs:
       - run:
           name: echo CIRCLE_BUILD_NUM
           command: echo $CIRCLE_BUILD_NUM
+      - test:
+          post:
+            - curl -sSL https://download.sourceclear.com/ci.sh | sh
       - run:
           name: zip-package
           command: zip -r sample-lambda-api-$CIRCLE_BUILD_NUM.zip .
