@@ -1,5 +1,6 @@
- const axios = require('axios')
- const url = 'http://checkip.amazonaws.com/';
+const axios = require("axios");
+const moment = require("moment");
+const url = "http://checkip.amazonaws.com/";
 let response;
 
 /**
@@ -21,7 +22,8 @@ exports.lambdaHandler = async (event, context) => {
       statusCode: 200,
       body: JSON.stringify({
         message: "hello world",
-        location: ret.data.trim()
+        location: ret.data.trim(),
+          time: moment('2312-24-12', "/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i", true).isValid()
       })
     };
   } catch (err) {
@@ -33,26 +35,26 @@ exports.lambdaHandler = async (event, context) => {
 };
 
 exports.lambdaAxiosHandler = async (event, context) => {
-    try {
-        const ret = await getData();
-        response = {
-            statusCode: 200,
-            body: JSON.stringify({
-                message: "hello world",
-                location: ret.data.trim()
-            })
-        };
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+  try {
+    const ret = await getData();
+    response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "hello world",
+        location: ret.data.trim()
+      })
+    };
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
 
-    return response;
+  return response;
 };
 
-getData = async ()=> {
+getData = async () => {
   try {
-      return await axios.get(url, { maxContentLength: 2000 });
+    return await axios.get(url, { maxContentLength: 2000 });
   } catch (err) {
     console.log(err);
     return err;
