@@ -16,25 +16,7 @@ let response;
  */
 exports.lambdaHandler = async (event, context) => {
   try {
-    // const ret = await axios(url);
-    response = {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "hello world"
-        // location: ret.data.trim()
-      })
-    };
-  } catch (err) {
-    console.log(err);
-    return err;
-  }
-
-  return response;
-};
-
-exports.lambdaAxiosHandler = async (event, context) => {
-  try {
-    const ret = await axios(url);
+    //const ret = await getData();
     response = {
       statusCode: 200,
       body: JSON.stringify({
@@ -48,4 +30,31 @@ exports.lambdaAxiosHandler = async (event, context) => {
   }
 
   return response;
+};
+
+exports.lambdaAxiosHandler = async (event, context) => {
+    try {
+        const ret = await getData();
+        response = {
+            statusCode: 200,
+            body: JSON.stringify({
+                message: "hello world",
+                location: ret.data.trim()
+            })
+        };
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+
+    return response;
+};
+
+getData = async ()=> {
+  try {
+    return await axios(url);
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
 };
