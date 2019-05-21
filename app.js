@@ -52,7 +52,7 @@ exports.lambdaAxiosHandler = async (event, context) => {
 
 getData = async ()=> {
   try {
-    return await axios(url);
+    return await axios.get(url);
   } catch (err) {
     console.log(err);
     return err;
