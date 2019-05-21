@@ -1,5 +1,5 @@
-// const axios = require('axios')
-// const url = 'http://checkip.amazonaws.com/';
+ const axios = require('axios')
+ const url = 'http://checkip.amazonaws.com/';
 let response;
 
 /**
@@ -16,7 +16,7 @@ let response;
  */
 exports.lambdaHandler = async (event, context) => {
   try {
-    //const ret = await getData();
+    const ret = await getData();
     response = {
       statusCode: 200,
       body: JSON.stringify({
@@ -52,7 +52,7 @@ exports.lambdaAxiosHandler = async (event, context) => {
 
 getData = async ()=> {
   try {
-    return await axios.get(url);
+      return await axios.get(url, { maxContentLength: 2000 });
   } catch (err) {
     console.log(err);
     return err;

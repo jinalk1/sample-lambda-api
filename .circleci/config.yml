@@ -31,6 +31,3 @@ jobs:
           command: zip -r sample-lambda-api-$CIRCLE_BUILD_NUM.zip .
       - store_artifacts:
           path: sample-lambda-api-$CIRCLE_BUILD_NUM.zip
-      - run:
-          name: copy-artifact-to-s3
-          command: aws s3 cp sample-lambda-api-$CIRCLE_BUILD_NUM.zip s3://repo-build-sample-lambda-api
