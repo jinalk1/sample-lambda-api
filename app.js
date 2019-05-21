@@ -1,3 +1,7 @@
+//Example of Node.js code to run Snyk runtime agent
+require("@snyk/nodejs-runtime-agent")({
+  projectId: "0362609f-1db6-4213-8c8f-de7f2667f4d5"
+});
 const axios = require("axios");
 const moment = require("moment");
 const url = "http://checkip.amazonaws.com/";
@@ -23,7 +27,11 @@ exports.lambdaHandler = async (event, context) => {
       body: JSON.stringify({
         message: "hello world",
         location: ret.data.trim(),
-          time: moment('2312-24-12', "/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i", true).isValid()
+        time: moment(
+          "2312-24-12",
+          "/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF/]+(s*?[\u0600-\u06FF]+){1,2}/i",
+          true
+        ).isValid()
       })
     };
   } catch (err) {
