@@ -60,7 +60,7 @@ exports.lambdaAxiosHandler = async (event, context) => {
   return response;
 };
 
-getData = async () => {
+const getData = async () => {
   try {
     return await axios.get(url, { maxContentLength: 2000 });
   } catch (err) {
